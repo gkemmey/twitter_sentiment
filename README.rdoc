@@ -3,7 +3,7 @@ Twitter Sentiment is a project that expored analyzing the sentiment of an indivi
 
 == Bayesian Spam Filtering
 Below is a brief description of how Bayesian Spam Filterig is used in Twitter Sentiment. For more information visit:
-http://en.wikipedia.org/wiki/Bayesian_spam_filtering
+http://en.wikipedia.org/wiki/Bayesian_spam_filtering or
 http://www.paulgraham.com/spam.html
 
 Bayesian Filtering in Twitter Sentiment works by determining the probability that a tweet is negative. A probability of .01 indicates that the tweet is likely positive, .5 is nuetral, and .99 indicates that the tweet is likely negative.
