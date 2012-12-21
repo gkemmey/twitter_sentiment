@@ -1,6 +1,23 @@
 = Twitter Sentiment
 Twitter Sentiment is a project that expored analyzing the sentiment of an individual tweet, as well as determining the overall sentiment in regards to a trend or search term. Twitter Sentiment uses methods of Bayesian Spam Filitering in an effort to determine the sentiment of a tweet.
 
+== How To Use
+Change line 1 as follows:
+  
+  % $LOAD_PATH << "/The/Folder/Where/You/Downloaded/These/Files/To"
+
+Once that's done you can run any of these scripts from the command line by typing 
+
+  %ruby <twitter_script.rb> false "search term"
+
+Here "search term" is some term or phrase you want to search for. The script will print out a list of tweets containing that phrase and calculate there sentiment as well as an average for all the tweets returned with that phrase.
+
+Or you can type
+
+  %ruby <twitter_script.rb> true number_of_trends_to_anaylze
+
+Here, the script will print out a list of tweets in a random twitter trend and calculate the sentiment of each tweet as well as an average for the trend as a whole. And it will do this for as many trends as you specify.
+
 == Bayesian Spam Filtering
 Below is a brief description of how Bayesian Spam Filterig is used in Twitter Sentiment. For more information visit:
 http://en.wikipedia.org/wiki/Bayesian_spam_filtering or
