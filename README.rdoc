@@ -1,0 +1,52 @@
+= Twitter Sentiment
+Twitter Sentiment is a project that expored analyzing the sentiment of an individual tweet, as well as determining the overall sentiment in regards to a trend or search term. Twitter Sentiment uses methods of Bayesian Spam Filitering in an effort to determine the sentiment of a tweet.
+
+== Bayesian Spam Filtering
+Below is a brief description of how Bayesian Spam Filterig is used in Twitter Sentiment. For more information visit:
+http://en.wikipedia.org/wiki/Bayesian_spam_filtering
+http://www.paulgraham.com/spam.html
+
+Bayesian Filtering in Twitter Sentiment works by determining the probability that a tweet is negative. A probability of .01 indicates that the tweet is likely positive, .5 is nuetral, and .99 indicates that the tweet is likely negative.
+
+=== An Example
+Let's say we know the word "sad" appears in 7 of our negative tweets, 2 of our positive tweets, and let's assume we have 10 of each kind of tweet. We can determine the probability that a tweet with the word "sad" in it is negative using the formula:
+
+  % (N / NumNegative) / ((N / NumNegative) + (P / NumPositive))
+Using the information above:
+
+  % (7 / 10) / ((7 / 10) + (2 / 10)) = 0.777778
+And we find that there is a 77.78% chance that a tweet containing the word "sad" is negative.
+
+Say this tweet that contains the word "sad" also contains the word "lonely", and we know that the word "lonely" appears in 8 of our negatice tweets and 1 of our positive tweets. We can calculate the probability that a tweet containing the word "lonely" is negative just like we did above for "sad".
+
+  % (8 / 10) / ((8 / 10) + (1 / 10)) = 0.888889
+And we find that there is a 88.89% change that a tweet containting the word "lonely" is negative.
+
+But we have a tweet that contians both "sad" and "lonely", how do we combine those to probabilities above to determine the probability that a tweet containing both "sad" and "lonely" is negative. Let's call the probability that a tweet contiaining "sad" is negative (0.777778) "a" and the probability that a tweet containing "lonely" is negative (0.888889) "b". We can then combine these probabilites to determine the probability that a tweet containing both "sad" and "lonely" is negative using the fomula:
+
+  % a * b / ((a * b) + (1 - a)(1 - b))
+Using this we find that a tweet containing the words "sad" and "lonely" has a 96.55% chance of being negative.
+
+And we can add to this with any number of words. Say we wanted to take into account some third word (we call this probability "c"), we can extend the formula above:
+
+  % a * b * c / ((a * b * c) + (1 - a)(1 - b)(1 - c))
+
+Defining these properties (a, b, and c) is the most important part of Bayesian Filitering. For instance, in Spam filitering on of the most indivative properties for Spam is finding the string "ff0000" in the html--the color code for red. In Twitter Sentiment, we use up to ten what we call "focus words". These are the ten most occuring words in the tweet. If the Tweet doesn't have ten words, then as many words as the tweet contains are used. In the above example, "sad" and "lonely" were focus words. 
+
+However, in each of the three versions of the script we try something slightly different. In "twitter04_no_cleaning.rb" we don't clean the tweet of hashtags, urls, etc and we use only a single focus word. In "twitter05_no_cleaning_two_words.rb", we don't clean the tweet and we use frequently occuring pairs of words as the "focus words". In "twitter06_two_words" we still use pairs of words as the "focus words", but we don't clean the tweet.
+
+== The Corpus
+To use Bayseian Filitering methods we need a corpus of known positive tweets and known negative tweets. In our above example, that corpus is what told us that 7 out of 10 negative tweets contained "sad" and 2 out of 10 positive tweets contained "sad".
+
+In order to create a corpus for Twitter Sentiment, a cron job ran for a while that every five minutes searched Twitter for tweets containing a ":)" and tweets containing a ":(". Tweets containg ":)" were dumped in the file called "positive_tweets.txt" and tweets containing a ":(" were dumped in the file called "negative_tweets.txt". 
+
+In order for Twitter Sentiment to run quicker, it uses reduced corpus called "positive_tweets_20111115.txt" and "negative_tweets_20111115.txt".
+
+== Dependencies
+=== twitter
+twitter is a Ruby wrapper around the Twitter API. The GitHub project for twitter is
+https://github.com/sferik/twitter
+
+== Recent Changes
+=== 1.0.0
+Updated to work with twitter version 4.4.0
