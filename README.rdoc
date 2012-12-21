@@ -10,7 +10,7 @@ Once that's done you can run any of these scripts from the command line by typin
 
   %ruby <twitter_script.rb> false "search term"
 
-Here "search term" is some term or phrase you want to search for. The script will print out a list of tweets containing that phrase and calculate there sentiment as well as an average for all the tweets returned with that phrase.
+Here "search term" is some term or phrase you want to search for. The script will print out a list of tweets containing that phrase and calculate their sentiment as well as an average for all the tweets returned with that phrase.
 
 Or you can type
 
